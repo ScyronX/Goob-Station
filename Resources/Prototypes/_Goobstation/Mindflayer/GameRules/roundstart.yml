@@ -1,0 +1,22 @@
+- type: entity
+  parent: BaseGameRule
+  id: Mindflayer
+  components:
+  - type: MindflayerRule
+  - type: GameRule
+    minPlayers: 15
+#  - type: AntagObjectives
+#    objectives:
+#    - HereticKnowledgeObjective
+#    - HereticSacrificeObjective
+#    - HereticSacrificeHeadObjective
+  - type: AntagSelection
+    selectionTime: BeforeJobs
+    agentName: mindflayer-roundend-name
+    definitions:
+    - prefRoles: [ Mindflayer ]
+      max: 10
+      playerRatio: 10
+      lateJoinAdditional: true
+      mindRoles:
+      - MindRoleMindflayer

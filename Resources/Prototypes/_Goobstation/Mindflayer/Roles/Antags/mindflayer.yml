@@ -1,0 +1,14 @@
+- type: antag
+  id: Mindflayer
+  name: roles-antag-mindflayer-name
+  antagonist: true
+  setPreference: true
+  objective: roles-antag-mindflayer-description
+  requirements:
+    - !type:OverallPlaytimeRequirement
+      time: 18000 #10 hrs
+    - !type:SpeciesRequirement
+    inverted: false
+    species:
+    - IPC
+  guides: [ Mindflayer ]
