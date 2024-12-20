@@ -212,7 +212,7 @@
     exclusiveAntag: true
   - type: MindcontrolledRole
 
-  - type: entity
+- type: entity
   parent: BaseMindRoleAntag
   id: MindRoleMindflayer
   name: Mindflayer Role
