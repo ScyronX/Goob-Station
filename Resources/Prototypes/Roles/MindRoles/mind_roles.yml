@@ -211,4 +211,14 @@
     antagPrototype: Mindcontrolled
     exclusiveAntag: true
   - type: MindcontrolledRole
+
+  - type: entity
+  parent: BaseMindRoleAntag
+  id: MindRoleMindflayer
+  name: Mindflayer Role
+  components:
+  - type: MindRole
+    antagPrototype: Mindflayer
+    exclusiveAntag: true
+  - type: MindflayerRole
 # goob edit end
