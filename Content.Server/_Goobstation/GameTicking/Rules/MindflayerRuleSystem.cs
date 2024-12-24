@@ -5,7 +5,7 @@ using Content.Server.Mind;
 using Content.Server.Objectives;
 using Content.Server.Objectives.Components;
 using Content.Server.Roles;
-//using Content.Shared.Mindflayer;
+using Content.Shared.Mindflayer;
 using Content.Shared.NPC.Prototypes;
 using Content.Shared.NPC.Systems;
 using Content.Shared.Roles;
@@ -77,10 +77,10 @@ public sealed partial class MindflayerRuleSystem : GameRuleSystem<MindflayerRule
                 AddComp(mr.Value, new RoleBriefingComponent { Briefing = briefingShort }, overwrite: true);
         }
         _npcFaction.RemoveFaction(target, NanotrasenFactionId, false);
-       // _npcFaction.AddFaction(target, MindflayerFactionId);
-/*
-        EnsureComp<MindflayerComponent>(target);
+        _npcFaction.AddFaction(target, MindflayerFactionId);
 
+        EnsureComp<MindflayerComponent>(target);
+/*
         /add store
         var store = EnsureComp<StoreComponent>(target);
         foreach (var category in rule.StoreCategories)

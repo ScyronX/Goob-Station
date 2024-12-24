@@ -1,0 +1,48 @@
+- type: entity
+  id: ActionToggleSwarmProd
+  name: Toggle Swarmprod
+  description: Reform one of your arms into a swarmprod.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: InstantAction
+    useDelay: 2
+    itemIconStyle: NoItem
+    icon:
+      sprite: _Goobstation/Mindflayer/action/mindflayer_action_icon.rsi
+      state: swarmprod
+    event: !type:ToggleSwarmProdEvent {}
+
+- type: entity
+  id: ActionActivateQuickReboot
+  name: Activate Quick Reboot
+  description: Heal yourself and recharge with the swarm.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: InstantAction
+    checkCanInteract: false
+    checkConsciousness: false
+    useDelay: 600
+    itemIconStyle: NoItem
+    icon:
+      sprite: _Goobstation/Mindflayer/action/mindflayer_action_icon.rsi
+      state: quick_reboot
+    event: !type:ActivateQuickRebootEvent {}
+
+- type: entity
+  id: ActionDrainMind
+  name: Drain Mind
+  description: Drain the target's mind, earning swarms in the process.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: EntityTargetAction
+    useDelay: 5
+    whitelist:
+      components:
+      - Body
+    canTargetSelf: false
+    interactOnMiss: false
+    itemIconStyle: NoItem
+    icon:
+      sprite: _Goobstation\Mindflayer\icon\mindflayer_icon.rsi
+      state: icon
+    event: !type:DrainMindEvent {}
