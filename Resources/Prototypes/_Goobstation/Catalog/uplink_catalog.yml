@@ -93,7 +93,6 @@
   categories:
   - UplinkWeaponry
 
-
 - type: listing
   id: UplinkMiniatureEnergyCrossbow
   name: uplink-miniature-energy-crossbow-name
@@ -109,6 +108,17 @@
     blacklist:
       tags:
       - NukeOpsUplink
+
+- type: listing
+  id: UplinkWSPR
+  name: uplink-WSPR-name
+  description: uplink-WSPR-desc
+  icon: { sprite: /Textures/Objects/Weapons/Guns/Rifles/ak.rsi, state: icon }
+  productEntity: ClothingBackpackDuffelSyndicateFilledWSPR
+  cost:
+    Telecrystal: 85
+  categories:
+  - UplinkWeaponry
 
 - type: listing
   id: UplinkWeaponRifleBurner
@@ -136,6 +146,28 @@
     blacklist:
       tags:
       - NukeOpsUplink
+
+- type: listing
+  id: UplinkDualettaBundle
+  name: uplink-dualetta-bundle-name
+  description: uplink-dualetta-bundle-desc
+  icon: { sprite: /Textures/_Goobstation/Objects/Weapons/Guns/Pistols/Dualetta.rsi, state: icon }
+  productEntity: BriefcaseSyndieDualettaBundleFilled
+  cost:
+    Telecrystal: 50
+  categories:
+  - UplinkWeaponry
+
+- type: listing
+  id: UplinkDualettaKit
+  name: uplink-dualetta-kit-name
+  description: uplink-dualetta-kit-desc
+  icon: { sprite: /Textures/_Goobstation/Objects/Weapons/Guns/Pistols/Dualetta.rsi, state: icon }
+  productEntity: BoxDualettaKit
+  cost:
+    Telecrystal: 30
+  categories:
+  - UplinkWeaponry
 
 # Wearables
 
@@ -275,6 +307,21 @@
     - Clown
     - Passenger
 
+- type: listing
+  id: UplinkZooimovCircuitBoard
+  name: zooimov circuit board
+  description: A lawset for when you wanna keep all the stations animals safe and protected.
+  productEntity: ZooimovCircuitBoard
+  cost:
+    Telecrystal: 15
+  categories:
+    -  UplinkJob
+  conditions:
+  - !type:BuyerJobCondition
+    whitelist:
+    - Zookeeper
+  saleLimit: 1
+
 
 # chemicals
 
@@ -320,7 +367,7 @@
 
 - type: listing
   id: UplinkSmugglerSatchel
-  name: uplink-smugglers-satchel-name
+  name: smuggler's satchel
   description: uplink-smugglers-satchel-desc
   icon: { sprite: Clothing/Back/Satchels/satchel.rsi, state: icon }
   productEntity: ClothingSatchelSmuggler
@@ -432,6 +479,28 @@
   - UplinkAmmo
 
 - type: listing
+  id: UplinkLightRifleSubsonicMag
+  name: uplink-rifle-subsonic-mag-name
+  description: uplink-rifle-subsonic-mag-desc
+  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/LightRifle/light_rifle_mag.rsi, state: rubber }
+  productEntity: MagazineLightRifleSubsonic
+  cost:
+    Telecrystal: 5
+  categories:
+  - UplinkAmmo
+
+- type: listing
+  id: UplinkHighCapacityMagazinePistol
+  name: uplink-highcap-pistol-mag-name
+  description: uplink-highcap-pistol-mag-desc
+  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/Pistol/pistol_high_capacity_mag.rsi, state: red }
+  productEntity: MagazinePistolHighCapacity
+  cost:
+    Telecrystal: 3
+  categories:
+  - UplinkAmmo
+
+- type: listing
   id: UplinkSyndicateSegwayCrate
   name: uplink-syndicate-segway-crate-name # Funnily enough these localizations weren't removed when wiz removed vehicles
   description: uplink-syndicate-segway-crate-desc
@@ -475,3 +544,15 @@
     whitelist:
       tags:
       - NukeOpsUplink
+
+# Misc
+
+- type: listing
+  id: UplinkDimensionPot
+  name: uplink-dimension-pot-name
+  description: uplink-dimension-pot-desc
+  productEntity: DimensionPot
+  cost:
+    Telecrystal: 70
+  categories:
+  - UplinkDeception

@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Content.Shared._EinsteinEngines.Silicon.Components; // Goobstation
 using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
 using Content.Shared.Examine;
@@ -348,6 +349,9 @@ public abstract class SharedMindSystem : EntitySystem
         var title = Name(objective);
         _adminLogger.Add(LogType.Mind, LogImpact.Low, $"Objective {objective} ({title}) added to mind of {MindOwnerLoggingString(mind)}");
         mind.Objectives.Add(objective);
+        // Shitmed Change - Raise an event on the mind ent with the objective.
+        var ev = new ObjectiveAddedEvent(objective);
+        RaiseLocalEvent(mindId, ev);
     }
 
     /// <summary>
@@ -532,7 +536,7 @@ public abstract class SharedMindSystem : EntitySystem
     /// <summary>
     /// Returns a list of every living humanoid player's minds, except for a single one which is exluded.
     /// </summary>
-    public HashSet<Entity<MindComponent>> GetAliveHumans(EntityUid? exclude = null)
+    public HashSet<Entity<MindComponent>> GetAliveHumans(EntityUid? exclude = null, bool excludeSilicon = false)
     {
         var allHumans = new HashSet<Entity<MindComponent>>();
         // HumanoidAppearanceComponent is used to prevent mice, pAIs, etc from being chosen
@@ -542,6 +546,10 @@ public abstract class SharedMindSystem : EntitySystem
             // the player needs to have a mind and not be the excluded one +
             // the player has to be alive
             if (!TryGetMind(uid, out var mind, out var mindComp) || mind == exclude || !_mobState.IsAlive(uid, mobState))
+                continue;
+
+            // Goobstation: Skip IPCs from selections
+            if (excludeSilicon && HasComp<SiliconComponent>(uid))
                 continue;
 
             allHumans.Add(new Entity<MindComponent>(mind, mindComp));
@@ -558,3 +566,9 @@ public abstract class SharedMindSystem : EntitySystem
 /// <param name="Dead"></param>
 [ByRefEvent]
 public record struct GetCharactedDeadIcEvent(bool? Dead);
+
+/// <summary>
+///     Shitmed Change: Raised on an entity to notify that an objective has been added to the mind.
+/// </summary>
+/// <param name="Objective"></param>
+public record struct ObjectiveAddedEvent(EntityUid Objective);
