@@ -11,6 +11,7 @@ public sealed partial class MindflayerActionComponent : Component
 
 }
 
+public sealed partial class OpenSwarmMenuEvent : InstantActionEvent { }
 public sealed partial class ToggleSwarmProdEvent : InstantActionEvent { }
 public sealed partial class ActivateQuickRebootEvent : InstantActionEvent { }
 public sealed partial class DrainMindEvent : EntityTargetActionEvent { }

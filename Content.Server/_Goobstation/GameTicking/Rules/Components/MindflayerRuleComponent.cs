@@ -1,4 +1,4 @@
-//using Content.Shared.Store;
+using Content.Shared.Store;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.GameTicking.Rules.Components;
@@ -6,17 +6,12 @@ namespace Content.Server.GameTicking.Rules.Components;
 [RegisterComponent, Access(typeof(MindflayerRuleSystem))]
 public sealed partial class MindflayerRuleComponent : Component
 {
-    public readonly List<EntityUid> Minds = new();
+    public readonly List<EntityUid> MindflayerMinds = new();
 
-    /*
     public readonly List<ProtoId<StoreCategoryPrototype>> StoreCategories = new()
     {
-        "HereticPathAsh",
-        //"HereticPathLock",
-        "HereticPathFlesh",
-        "HereticPathBlade",
-        "HereticPathVoid",
-        "HereticPathSide"
+        "MindflayerPassiveAbilities",
+        "MindflayerIntruderAbilities",
+        "MindflayerDestroyerAbilities"
     };
-    */
 }

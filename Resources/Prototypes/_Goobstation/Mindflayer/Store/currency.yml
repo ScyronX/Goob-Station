@@ -1,0 +1,4 @@
+- type: currency
+  id: Swarms
+  displayName: store-currency-display-swarms
+  canWithdraw: false

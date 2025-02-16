@@ -215,5 +215,22 @@ public sealed partial class AdminVerbSystem
             Message = Loc.GetString("admin-verb-text-make-wizard"),
         };
         args.Verbs.Add(wizard);
+
+        // Goobstation - Mindflayer
+        Verb mindflayer = new()
+        {
+            Text = Loc.GetString("admin-verb-make-mindflayer"),
+            Category = VerbCategory.Antag,
+            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_Goobstation/Mindflayer/icon/mindflayer_icon.rsi"), "icon"),
+            Act = () =>
+            {
+                if (HasComp<SiliconComponent>(args.Target))
+                    _antag.ForceMakeAntag<MindflayerRuleComponent>(targetPlayer, "Mindflayer");
+            },
+            Impact = LogImpact.High,
+            Message = Loc.GetString("admin-verb-make-mindflayer"),
+        };
+        if (HasComp<SiliconComponent>(args.Target))
+            args.Verbs.Add(mindflayer);
     }
 }

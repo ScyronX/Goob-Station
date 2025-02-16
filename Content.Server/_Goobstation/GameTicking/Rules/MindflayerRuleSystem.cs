@@ -35,7 +35,7 @@ public sealed partial class MindflayerRuleSystem : GameRuleSystem<MindflayerRule
 
     [ValidatePrototypeId<NpcFactionPrototype>] public readonly ProtoId<NpcFactionPrototype> NanotrasenFactionId = "NanoTrasen";
 
-    [ValidatePrototypeId<CurrencyPrototype>] public readonly ProtoId<CurrencyPrototype> Currency = "Nanites";
+    [ValidatePrototypeId<CurrencyPrototype>] public readonly ProtoId<CurrencyPrototype> Currency = "Swarms";
 
     [ValidatePrototypeId<EntityPrototype>] static EntProtoId mindRole = "MindRoleMindflayer";
 
@@ -80,14 +80,14 @@ public sealed partial class MindflayerRuleSystem : GameRuleSystem<MindflayerRule
         _npcFaction.AddFaction(target, MindflayerFactionId);
 
         EnsureComp<MindflayerComponent>(target);
-/*
-        /add store
+
+        // adds store
         var store = EnsureComp<StoreComponent>(target);
         foreach (var category in rule.StoreCategories)
             store.Categories.Add(category);
         store.CurrencyWhitelist.Add(Currency);
         store.Balance.Add(Currency, 2);
-*/
+
         rule.Minds.Add(mindId);
 
         return true;

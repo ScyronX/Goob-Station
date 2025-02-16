@@ -78,6 +78,7 @@ public sealed partial class MindflayerSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly DoAfterSystem _doAfter = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
+    [Dependency] private readonly StoreSystem _store = default!;
 
     public EntProtoId SwarmProdPrototype = "Swarmprod";
 
@@ -104,7 +105,7 @@ public sealed partial class MindflayerSystem : EntitySystem
     {
         if (action.Handled)
             return false;
-        
+
         action.Handled = true;
 
         return true;
@@ -154,7 +155,7 @@ public sealed partial class MindflayerSystem : EntitySystem
             part.CanSever = false;
             Dirty(id, part);
         }
-        
+
     }
 
     private void OnEmpAttempt(EntityUid uid, MindflayerComponent comp, EmpAttemptEvent args)

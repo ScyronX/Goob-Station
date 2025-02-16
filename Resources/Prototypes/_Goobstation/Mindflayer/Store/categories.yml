@@ -1,0 +1,16 @@
+# Mindflayer
+
+- type: storeCategory
+  id: MindflayerPassiveAbilities
+  name: store-mindflayer-passive-abilities
+  priority: 0
+
+- type: storeCategory
+  id: MindflayerIntruderAbilities
+  name: store-mindflayer-intruder-abilities
+  priority: 0
+
+- type: storeCategory
+  id: MindflayerDestroyerAbilities
+  name: store-mindflayer-destroyer-abilities
+  priority: 0

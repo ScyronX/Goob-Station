@@ -5,10 +5,10 @@
   setPreference: true
   objective: roles-antag-mindflayer-description
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 18000 #10 hrs
-    - !type:SpeciesRequirement
-     inverted: true
-     species:
-      - IPC
+  - !type:OverallPlaytimeRequirement
+    time: 18000
+  - !type:SpeciesRequirement
+    inverted: true
+    species:
+    - IPC
   guides: [ Mindflayer ]

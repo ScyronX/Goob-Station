@@ -1,4 +1,17 @@
 - type: entity
+  id: ActionSwarmMenu
+  name: Open swarm menu
+  description: Opens the swarm menu.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: InstantAction
+    itemIconStyle: NoItem
+    icon:
+      sprite: _Goobstation/Mindflayer/icon/mindflayer_icon.rsi
+      state: icon
+    event: !type:OpenSwarmMenuEvent {}
+
+- type: entity
   id: ActionToggleSwarmProd
   name: Toggle Swarmprod
   description: Reform one of your arms into a swarmprod.
@@ -43,6 +56,6 @@
     interactOnMiss: false
     itemIconStyle: NoItem
     icon:
-      sprite: _Goobstation\Mindflayer\icon\mindflayer_icon.rsi
+      sprite: _Goobstation/Mindflayer/icon/mindflayer_icon.rsi
       state: icon
     event: !type:DrainMindEvent {}

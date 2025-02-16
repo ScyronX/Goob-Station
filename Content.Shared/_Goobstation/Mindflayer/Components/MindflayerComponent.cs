@@ -13,6 +13,7 @@ public sealed partial class MindflayerComponent : Component
 
     public readonly List<ProtoId<EntityPrototype>> BaseMindflayerActions = new()
     {
+        "ActionSwarmMenu",
         "ActionToggleSwarmProd",
         "ActionActivateQuickReboot",
         "ActionDrainMind"
@@ -28,7 +29,7 @@ public sealed partial class MindflayerComponent : Component
 
      public Dictionary<string, EntityUid?> Equipment = new();
 
-     #endregion 
+     #endregion
 
 }
 

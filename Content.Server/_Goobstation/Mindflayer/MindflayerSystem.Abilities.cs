@@ -26,18 +26,26 @@ public sealed partial class MindflayerSystem : EntitySystem
 {
     public void SubscribeAbilities()
     {
-
+        SubscribeLocalEvent<MindflayerComponent, OpenSwarmMenuEvent>(OnOpenSwarmMenu);
         SubscribeLocalEvent<MindflayerComponent, ToggleSwarmProdEvent>(OnToggleSwarmProd);
         SubscribeLocalEvent<MindflayerComponent, ActivateQuickRebootEvent>(OnActivateQuickReboot);
         SubscribeLocalEvent<MindflayerComponent, DrainMindEvent>(OnDrainMind);
 
     }
 
+    private void OnOpenSwarmMenu(EntityUid uid, MindflayerComponent comp, ref OpenSwarmMenuEvent args)
+    {
+        if (!TryComp<StoreComponent>(uid, out var store))
+            return;
+
+        _store.ToggleUi(uid, uid, store);
+    }
+
     private void OnDrainMind(EntityUid uid, MindflayerComponent comp, ref DrainMindEvent args)
     {
         var target = args.Target;
 
-        if (!IsIncapacitated(target))
+        if (IsIncapacitated(target))
         {
             _popup.PopupEntity(Loc.GetString("mindflayer-drain-fail-incapacitated"), uid, uid);
             return;
