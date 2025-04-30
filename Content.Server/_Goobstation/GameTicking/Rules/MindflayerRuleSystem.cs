@@ -88,7 +88,7 @@ public sealed partial class MindflayerRuleSystem : GameRuleSystem<MindflayerRule
         store.CurrencyWhitelist.Add(Currency);
         store.Balance.Add(Currency, 2);
 
-        rule.Minds.Add(mindId);
+        rule.MindflayerMinds.Add(mindId);
 
         return true;
     }

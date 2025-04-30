@@ -59,3 +59,18 @@
       sprite: _Goobstation/Mindflayer/icon/mindflayer_icon.rsi
       state: icon
     event: !type:DrainMindEvent {}
+
+- type: entity
+  id: ActionEnhancedOpticalSensitivity
+  name: Enhanced Optical Sensitivity
+  description: Toggle thermal vision.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: InstantAction
+    useDelay: 1
+    checkCanInteract: false
+    itemIconStyle: NoItem
+    icon:
+      sprite: _Goobstation/Mindflayer/icon/mindflayer_icon.rsi
+      state: icon
+    event: !type:ToggleThermalVisionEvent {}

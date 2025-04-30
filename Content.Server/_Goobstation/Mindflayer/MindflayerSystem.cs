@@ -57,11 +57,19 @@ using Content.Server.Stunnable;
 using Content.Shared.Jittering;
 using Content.Server.Explosion.EntitySystems;
 using System.Linq;
-using Content.Shared.Heretic;
+using Content.Shared.Mobs;
+using Content.Shared.Mobs.Components;
+using Content.Shared.Mobs.Systems;
 using Content.Shared._Goobstation.Actions;
 using Content.Shared.Body.Components;
 using Content.Shared.PowerCell.Components;
 using Content.Server.PowerCell;
+using Content.Shared.Slippery;
+using Content.Shared.Electrocution;
+using Content.Shared.Damage;
+using Content.Shared.Eye.Blinding.Components;
+using Content.Server.Flash.Components;
+using Content.Shared._White.Overlays;
 
 namespace Content.Server.Mindflayer;
 
@@ -79,6 +87,8 @@ public sealed partial class MindflayerSystem : EntitySystem
     [Dependency] private readonly DoAfterSystem _doAfter = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly StoreSystem _store = default!;
+    [Dependency] private readonly MobThresholdSystem _threshold = default!;
+    [Dependency] private readonly IComponentFactory _compFactory = default!;
 
     public EntProtoId SwarmProdPrototype = "Swarmprod";
 
@@ -88,6 +98,14 @@ public sealed partial class MindflayerSystem : EntitySystem
 
         SubscribeLocalEvent<MindflayerComponent, ComponentStartup>(OnStartup);
         SubscribeLocalEvent<MindflayerComponent, EmpAttemptEvent>(OnEmpAttempt);
+
+        SubscribeLocalEvent<MindflayerComponent, MindflayerArmorPurchasedEvent>(OnMindflayerArmorPurchased);
+        SubscribeLocalEvent<MindflayerComponent, MindflayerFluidFeetPurchasedEvent>(OnMindflayerFluidFeetPurchased);
+        SubscribeLocalEvent<MindflayerComponent, MindflayerFaradayCagePurchasedEvent>(OnMindflayerFaradayCagePurchased);
+        SubscribeLocalEvent<MindflayerComponent, MindflayerInsulationPurchasedEvent>(OnMindflayerInsulationPurchased);
+        SubscribeLocalEvent<MindflayerComponent, MindflayerNaniteHealingPurchasedEvent>(OnMindflayerNaniteHealingPurchased);
+        SubscribeLocalEvent<MindflayerComponent, MindflayerEnhancedOpticalSensitivityPurchasedEvent>(OnMindflayerEnhancedOpticalSensitivityPurchased);
+        SubscribeLocalEvent<MindflayerComponent, MindflayerReinforcedJointsPurchasedEvent>(OnMindflayerReinforcedJointsPurchased);
 
         SubscribeAbilities();
     }
@@ -110,6 +128,68 @@ public sealed partial class MindflayerSystem : EntitySystem
 
         return true;
     }
+
+    private void OnMindflayerArmorPurchased(Entity<MindflayerComponent> ent, ref MindflayerArmorPurchasedEvent args)
+    {
+        if(!TryComp<MobThresholdsComponent>(ent, out var component))
+            return;
+
+        _threshold.SetMobStateThreshold(ent, _threshold.GetThresholdForState(ent,MobState.Dead)*1.3f, MobState.Dead, component);
+    }
+
+    private void OnMindflayerFluidFeetPurchased(Entity<MindflayerComponent> ent, ref MindflayerFluidFeetPurchasedEvent args)
+    {
+        EnsureComp<NoSlipComponent>(ent);
+    }
+
+    private void OnMindflayerFaradayCagePurchased(Entity<MindflayerComponent> ent, ref MindflayerFaradayCagePurchasedEvent args)
+    {
+        ent.Comp.EMPImmune = true;
+    }
+
+    private void OnMindflayerInsulationPurchased(Entity<MindflayerComponent> ent, ref MindflayerInsulationPurchasedEvent args)
+    {
+        EnsureComp<InsulatedComponent>(ent);
+    }
+
+    private void OnMindflayerNaniteHealingPurchased(Entity<MindflayerComponent> ent, ref MindflayerNaniteHealingPurchasedEvent args)
+    {
+        var healingcomponent = EnsureComp<PassiveDamageComponent>(ent);
+        healingcomponent.AllowedStates.Add(MobState.Alive);
+        healingcomponent.Damage = ent.Comp.PassiveHealing;
+    }
+
+    private void OnMindflayerEnhancedOpticalSensitivityPurchased(Entity<MindflayerComponent> ent, ref MindflayerEnhancedOpticalSensitivityPurchasedEvent args)
+    {
+        InitializeEnhancedOpticalSensitivity(ent);
+    }
+
+    public void InitializeEnhancedOpticalSensitivity(EntityUid uid)
+    {
+        EnsureComp<FlashImmunityComponent>(uid);
+        EnsureComp<EyeProtectionComponent>(uid);
+
+        var thermalVision = _compFactory.GetComponent<ThermalVisionComponent>();
+        thermalVision.Color = Color.FromHex("#009933");
+        thermalVision.LightRadius = 15f;
+        thermalVision.FlashDurationMultiplier = 2f;
+        thermalVision.ActivateSound = null;
+        thermalVision.DeactivateSound = null;
+        thermalVision.ToggleAction = null;
+
+        AddComp(uid, thermalVision);
+    }
+
+    private void OnMindflayerReinforcedJointsPurchased(Entity<MindflayerComponent> ent, ref MindflayerReinforcedJointsPurchasedEvent args)
+    {
+
+        foreach (var (id, part) in _bodySystem.GetBodyChildren(ent))
+        {
+            part.CanSever = false;
+            Dirty(id, part);
+        }
+    }
+
 
     public bool TryToggleItem(EntityUid uid, EntProtoId proto, MindflayerComponent comp)
     {
@@ -148,21 +228,13 @@ public sealed partial class MindflayerSystem : EntitySystem
 
         foreach (var actionId in comp.BaseMindflayerActions)
             _actions.AddAction(uid, actionId);
-
-
-        foreach (var (id, part) in _bodySystem.GetBodyChildren(uid))
-        {
-            part.CanSever = false;
-            Dirty(id, part);
-        }
-
     }
 
     private void OnEmpAttempt(EntityUid uid, MindflayerComponent comp, EmpAttemptEvent args)
     {
-        // IPC is immune to emp
-        // powercell relays the event to body
-        args.Cancel();
+        // Mindflayer internal faraday cage ability makes IPC immune to emp
+        if(comp.EMPImmune)
+            args.Cancel();
     }
 
     #endregion

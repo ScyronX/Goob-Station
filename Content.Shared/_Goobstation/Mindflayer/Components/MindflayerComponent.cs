@@ -3,13 +3,13 @@ using Content.Shared.StatusIcon;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
+using Content.Shared.Damage;
 
 namespace Content.Shared.Mindflayer;
 
 [RegisterComponent, NetworkedComponent]
 public sealed partial class MindflayerComponent : Component
 {
-    #region Prototypes
 
     public readonly List<ProtoId<EntityPrototype>> BaseMindflayerActions = new()
     {
@@ -27,10 +27,21 @@ public sealed partial class MindflayerComponent : Component
         new SoundPathSpecifier("/Audio/_EinsteinEngines/Effects/Buzzes/buzz3.ogg"),
     };
 
-     public Dictionary<string, EntityUid?> Equipment = new();
+    public Dictionary<string, EntityUid?> Equipment = new();
 
-     #endregion
+    public bool EMPImmune = false;
 
+    [DataField("PassiveHealing")]
+    public DamageSpecifier PassiveHealing = new()
+    {
+        DamageDict = new()
+        {
+            { "Blunt", -2 },
+            { "Slash", -2 },
+            { "Piercing", -2 },
+            {"Ion", -2}
+        }
+    };
 }
 
 [DataDefinition]

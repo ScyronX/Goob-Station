@@ -1,0 +1,107 @@
+# passive
+
+- type: listing
+  id: SwarmMenuArmor
+  name: swarmmenu-armor-name
+  description: swarmmenu-armor-desc
+  icon: { sprite: _Goobstation/Mindflayer/icon/mindflayer_icon.rsi, state: icon }
+  productEvent: !type:MindflayerArmorPurchasedEvent
+  raiseProductEventOnUser: true
+  cost:
+    Swarms: 1
+  categories:
+  - MindflayerPassiveAbilities
+  conditions:
+  - !type:ListingLimitedStockCondition
+    stock: 1
+
+- type: listing
+  id: SwarmMenuFluidFeet
+  name: swarmmenu-fluid-feet-name
+  description: swarmmenu-fluid-feet-desc
+  icon: { sprite: _Goobstation/Mindflayer/icon/mindflayer_icon.rsi, state: icon }
+  productEvent: !type:MindflayerFluidFeetPurchasedEvent
+  raiseProductEventOnUser: true
+  cost:
+    Swarms: 1
+  categories:
+  - MindflayerPassiveAbilities
+  conditions:
+  - !type:ListingLimitedStockCondition
+    stock: 1
+
+- type: listing
+  id: SwarmMenuFaradayCage
+  name: swarmmenu-faraday-cage-name
+  description: swarmmenu-faraday-cage-desc
+  icon: { sprite: _Goobstation/Mindflayer/icon/mindflayer_icon.rsi, state: icon }
+  productEvent: !type:MindflayerFaradayCagePurchasedEvent
+  raiseProductEventOnUser: true
+  cost:
+    Swarms: 1
+  categories:
+  - MindflayerPassiveAbilities
+  conditions:
+  - !type:ListingLimitedStockCondition
+    stock: 1
+
+- type: listing
+  id: SwarmMenuInsulation
+  name: swarmmenu-insulation-name
+  description: swarmmenu-insulation-desc
+  icon: { sprite: _Goobstation/Mindflayer/icon/mindflayer_icon.rsi, state: icon }
+  productEvent: !type:MindflayerInsulationPurchasedEvent
+  raiseProductEventOnUser: true
+  cost:
+    Swarms: 1
+  categories:
+  - MindflayerPassiveAbilities
+  conditions:
+  - !type:ListingLimitedStockCondition
+    stock: 1
+
+- type: listing
+  id: SwarmMenuNaniteHealing
+  name: swarmmenu-nanite-healing-name
+  description: swarmmenu-nanite-healing-desc
+  icon: { sprite: _Goobstation/Mindflayer/icon/mindflayer_icon.rsi, state: icon }
+  productEvent: !type:MindflayerNaniteHealingPurchasedEvent
+  raiseProductEventOnUser: true
+  cost:
+    Swarms: 1
+  categories:
+  - MindflayerPassiveAbilities
+  conditions:
+  - !type:ListingLimitedStockCondition
+    stock: 1
+
+- type: listing
+  id: SwarmMenuEnhancedOpticalSensitivityHealing
+  name: swarmmenu-passive-enhanced-optical-sensitivity-name
+  description: swarmmenu-passive-enhanced-optical-sensitivity-desc
+  icon: { sprite: _Goobstation/Mindflayer/icon/mindflayer_icon.rsi, state: icon }
+  productAction: ActionEnhancedOpticalSensitivity
+  productEvent: !type:MindflayerEnhancedOpticalSensitivityPurchasedEvent
+  raiseProductEventOnUser: true
+  cost:
+    Swarms: 1
+  categories:
+  - MindflayerPassiveAbilities
+  conditions:
+  - !type:ListingLimitedStockCondition
+    stock: 1
+
+- type: listing
+  id: SwarmMenuReinforcedJoints
+  name: swarmmenu-reinforced-joints-name
+  description: swarmmenu-reinforced-joints-desc
+  icon: { sprite: _Goobstation/Mindflayer/icon/mindflayer_icon.rsi, state: icon }
+  productEvent: !type:MindflayerReinforcedJointsPurchasedEvent
+  raiseProductEventOnUser: true
+  cost:
+    Swarms: 1
+  categories:
+  - MindflayerPassiveAbilities
+  conditions:
+  - !type:ListingLimitedStockCondition
+    stock: 1

@@ -30,6 +30,7 @@ public sealed partial class MindflayerSystem : EntitySystem
         SubscribeLocalEvent<MindflayerComponent, ToggleSwarmProdEvent>(OnToggleSwarmProd);
         SubscribeLocalEvent<MindflayerComponent, ActivateQuickRebootEvent>(OnActivateQuickReboot);
         SubscribeLocalEvent<MindflayerComponent, DrainMindEvent>(OnDrainMind);
+        SubscribeLocalEvent<MindflayerComponent, DrainMindDoAfterEvent>(OnDrainMindDoAfter);
 
     }
 
@@ -45,7 +46,7 @@ public sealed partial class MindflayerSystem : EntitySystem
     {
         var target = args.Target;
 
-        if (IsIncapacitated(target))
+        if (!IsIncapacitated(target))
         {
             _popup.PopupEntity(Loc.GetString("mindflayer-drain-fail-incapacitated"), uid, uid);
             return;
@@ -93,13 +94,13 @@ public sealed partial class MindflayerSystem : EntitySystem
 
         var popup = Loc.GetString("mindflayer-drain-end");
 
-        /*if (TryComp<StoreComponent>(args.User, out var store))
+        if (TryComp<StoreComponent>(args.User, out var store))
         {
-            _store.TryAddCurrency(new Dictionary<string, FixedPoint2> { { "EvolutionPoint", bonusEvolutionPoints } }, args.User, store);
+            _store.TryAddCurrency(new Dictionary<string, FixedPoint2> { { "Swarms", 1f} }, args.User, store);
             _store.UpdateUserInterface(args.User, args.User, store);
         }
 
-        if (_mind.TryGetMind(uid, out var mindId, out var mind))
+       /* if (_mind.TryGetMind(uid, out var mindId, out var mind))
             if (_mind.TryGetObjectiveComp<AbsorbConditionComponent>(mindId, out var objective, mind))
                 objective.Absorbed += 1;*/
         var popupOthersend = Loc.GetString("mindflayer-drain-end", ("user", Identity.Entity(uid, EntityManager)), ("target", Identity.Entity(target, EntityManager)));
